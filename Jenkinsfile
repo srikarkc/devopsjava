@@ -33,4 +33,7 @@ node('node1') {
     stage('Archive Artifact') {
         archiveArtifacts 'target/*.jar'
     }
+    stage('Complete') {
+        sh 'echo completed'
+    }
 }
