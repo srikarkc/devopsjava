@@ -6,7 +6,7 @@ node('node1') {
         javaHome = tool 'jdk8'
     }
     stage('Checkout') {
-        git 'https://github.com/atinsingh/devopsjava.git'
+        git url:'https://github.com/atinsingh/devopsjava.git', branch:'master'
     }
     stage('Compile') {
         // Run the maven build
@@ -35,5 +35,8 @@ node('node1') {
     }
     stage('Complete') {
         sh 'echo completed'
+    }
+    stage('Notify') {
+        sh 'echo may be sending email'
     }
 }
