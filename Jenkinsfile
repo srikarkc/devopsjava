@@ -16,7 +16,7 @@ node('node1') {
     }
     stage('Test') {
         // Run the maven build
-        withEnv(["JAVA_HOME= $javaHome", "MVN_HOME=$mvnHome"]) {
+        withEnv(["JAVA_HOME=$javaHome", "MVN_HOME=$mvnHome"]) {
             sh '"$MVN_HOME/bin/mvn" clean test'
         }
     }
