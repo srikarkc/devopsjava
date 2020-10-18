@@ -10,13 +10,13 @@ node('node1') {
     }
     stage('Compile') {
         // Run the maven build
-        withEnv(["MVN_HOME=$mvnHome", "JAVA_HOME= $javaHome"]) {
+        withEnv([ "JAVA_HOME=$javaHome", "MVN_HOME=$mvnHome"]) {
                 sh '"$MVN_HOME/bin/mvn" clean compile'
         }
     }
     stage('Test') {
         // Run the maven build
-        withEnv(["MVN_HOME=$mvnHome", "JAVA_HOME= $javaHome"]) {
+        withEnv(["JAVA_HOME= $javaHome", "MVN_HOME=$mvnHome"]) {
             sh '"$MVN_HOME/bin/mvn" clean test'
         }
     }
@@ -26,7 +26,7 @@ node('node1') {
     }
     stage('Package') {
         // Run the maven build
-        withEnv(["MVN_HOME=$mvnHome", "JAVA_HOME= $javaHome"]) {
+        withEnv(["JAVA_HOME=$javaHome", "MVN_HOME=$mvnHome"]) {
             sh '"$MVN_HOME/bin/mvn" clean package'
         }
     }
