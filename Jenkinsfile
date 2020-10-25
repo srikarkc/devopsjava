@@ -43,6 +43,47 @@ pipeline {
         sh 'mvn package'
       }
     }
+      stage ('Artifactory configuration') {
+          steps {
+              rtServer (
+                      id: "art1"
+              )
+
+              rtMavenDeployer (
+                      id: "MAVEN_DEPLOYER",
+                      serverId: "art1",
+                      releaseRepo: "libs-release-local",
+                      snapshotRepo: "libs-snapshot-local"
+              )
+
+              rtMavenResolver (
+                      id: "MAVEN_RESOLVER",
+                      serverId: "art1",
+                      releaseRepo: "libs-release",
+                      snapshotRepo: "libs-snapshot"
+              )
+          }
+      }
+
+      stage ('Exec Maven') {
+          steps {
+              rtMavenRun (
+                      tool: 'm3', // Tool name from Jenkins configuration
+                      pom: 'pom.xml',
+                      goals: 'install',
+                      deployerId: "MAVEN_DEPLOYER",
+                      resolverId: "MAVEN_RESOLVER"
+              )
+          }
+      }
+
+      stage ('Publish build info') {
+          steps {
+              rtPublishBuildInfo (
+                      serverId: "art1"
+              )
+          }
+      }
 
 
 
