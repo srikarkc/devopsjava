@@ -17,6 +17,11 @@ pipeline {
       }
     }
 
+    stage('SonarQube analysis') {
+      withSonarQubeEnv(credentialsId: 'sonarqube') { 
+        sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+      }
+    }
      stage('Test') {
       steps {
         sh 'mvn test'

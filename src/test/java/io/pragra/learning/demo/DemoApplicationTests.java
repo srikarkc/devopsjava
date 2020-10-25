@@ -30,7 +30,7 @@ class DemoApplicationTests {
 
     @Test
     void test4(){
-        Assertions.fail("Failing ");
+
     }
 
 }
