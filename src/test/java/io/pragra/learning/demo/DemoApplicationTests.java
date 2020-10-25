@@ -1,5 +1,6 @@
 package io.pragra.learning.demo;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,7 +13,7 @@ class DemoApplicationTests {
 
     @Test
     void test1(){
-
+    
     }
 
 
@@ -24,6 +25,12 @@ class DemoApplicationTests {
     @Test
     void test3(){
 
+    }
+
+
+    @Test
+    void test4(){
+        Assertions.fail("Failing ");
     }
 
 }
