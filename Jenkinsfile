@@ -1,21 +1,43 @@
 pipeline {
   agent any
+  tool{
+      maven 'm3'
+      jdk 'jdk8'
+  }
   stages {
-    stage('Preparation') {
+    stage('Checkout') {
       steps {
-        tool(name: 'm3', type: 'maven')
-        sh 'echo Preparing ENV'
+        chckoutscm
       }
     }
 
     stage('Compile') {
       steps {
-        sh 'echo helloworld'
+        sh 'mvn compile'
+      }
+    }
+
+     stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+     stage('Package') {
+      steps {
+        sh 'mvn package'
+      }
+    }
+
+     stage('Publish Test Result') {
+      steps {
+         junit '**/*.xml'
       }
     }
 
   }
-  environment {
-    ABC = 'DEF'
+  post {
+    always {
+       slackSend channel: 'devops_sept_2020', color: 'red', message: "BUILD FAILD - $JOB_NAME - $BUILD_ID", teamDomain: 'pragraconsulting2020', tokenCredentialId: 'slack'
+    }
   }
 }
