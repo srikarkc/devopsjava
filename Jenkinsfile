@@ -47,7 +47,7 @@ pipeline {
           steps {
               rtServer (
                       id: "art1",
-                      url: "http://3.16.10.158/artifactory",
+                      url: "http://3.219.34.82/artifactory",
                       credentialsId: "artifactory"
               )
 
